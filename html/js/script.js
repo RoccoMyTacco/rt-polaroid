@@ -1,21 +1,21 @@
-var up = false;
+var pshow = false;
 
 function polaroidshow(source, film) {
-    if(!up){
-        $('#popup').fadeIn('slow');
-        $('.popupclass').fadeIn('slow');
-        $('<img class="image2" src='+source+' style = "position: absolute; width:44.7em; height: 38.5em;">').appendTo('.popupclass')
-        $('<img class="image1" src="./img/film'+film+'.png" style = "width:53.2em; height: 53.2em;"/>').appendTo('.popupclass')
-        up = true
+    if(!pshow){
+        $('#polaroid').fadeIn('slow');
+        $('.polaroidshow').fadeIn('slow');
+        $('<img class="picture" src='+source+' style = "position: absolute; width:44.7em; height: 38.5em;">').appendTo('.polaroidshow')
+        $('<img class="border" src="./img/film'+film+'.png" style = "width:53.2em; height: 53.2em;"/>').appendTo('.polaroidshow')
+        pshow = true
     }
 }
 
 function polaroidhide() { 
-    if(up){
-        $('#popup').fadeOut('slow');
-        $('.popupclass').fadeOut('slow');
-        $('.popupclass').html("");
-        up = false
+    if(pshow){
+        $('#polaroid').fadeOut('slow');
+        $('.polaroidshow').fadeOut('slow');
+        $('.polaroidshow').html("");
+        pshow = false
         $.post('https://rt-polaroid/Close', JSON.stringify({}));
     }
 }
