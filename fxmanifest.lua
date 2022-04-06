@@ -22,9 +22,6 @@ server_scripts {
 	'server/*.lua',
 }
 
-shared_scripts {
-    'config.lua',
-}
 
 dependencies {
     'screenshot-basic'
@@ -32,6 +29,7 @@ dependencies {
 
 escrow_ignore {
     'server/sv_configable.lua',
+    'client/cl_configable.lua',
     'config.lua',
     'README.md',
 }

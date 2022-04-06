@@ -4,12 +4,11 @@ local photoactive = false
 local cameraprop = nil
 local frontCam = false
 local photoprop = nil
-math.randomseed(GetGameTimer())
-local fov_max = 60.0
-local fov_min = 50.0 -- max zoom level (smaller fov is more zoom)
-local zoomspeed = 10.0 -- camera zoom speed
-local speed_lr = 8.0 -- speed by which the camera pans left-right
-local speed_ud = 8.0 -- speed by which the camera pans up-down
+local fov_max = cl_configable.MaxZoom
+local fov_min = cl_configable.MinZoom
+local zoomspeed = cl_configable.ZoomSpeed
+local speed_lr = 8.0
+local speed_ud = 8.0 
 local fov = (fov_max+fov_min)*0.5
 local ammo = 0
 local border
@@ -106,7 +105,7 @@ function HandleZoom(cam)
     end
 end
 
-RegisterNetEvent("nrp-polaroid:client:use-camera", function()
+RegisterNetEvent("rt-polaroid:client:use-camera", function()
     if not active then
         active = true
         local ped = PlayerPedId()
@@ -131,7 +130,7 @@ RegisterNetEvent("nrp-polaroid:client:use-camera", function()
                     active = true
                     Wait(500)
 
-                    if cl_configable.CameraEffect ~= nil then
+                    if cl_configable.CameraEffect then
                         SetTimecycleModifier(cl_configable.CameraEffect)
                          SetTimecycleModifierStrength(cl_configable.CameraEffectStrength)
                     end
@@ -155,17 +154,22 @@ RegisterNetEvent("nrp-polaroid:client:use-camera", function()
                             if ammo > 0 then
                                 if not presstake then
                                     presstake = true
-                                    QBCore.Functions.TriggerCallback("nrp-polaroid:server:webhook", function(hook)
+                                    QBCore.Functions.TriggerCallback("rt-polaroid:server:webhook", function(hook)
                                         if hook then
                                             exports['screenshot-basic']:requestScreenshotUpload(tostring(hook), "files[]", function(data)
                                                 local image = json.decode(data)
                                                 FullClose()
                                                 if border == 0 then
-                                                    local rand = math.random(1, cl_configable.NumberOfFilms)
-                                                    TriggerServerEvent("nrp-polaroid:server:add-photo-item", image.attachments[1].proxy_url, rand)
-                                                    TriggerEvent("inventory:client:ItemBox", QBCore.Shared.Items["polaroidfilm"], "add")
+                                                    if cl_configable.NumberOfFilms then
+                                                        local rand = math.random(1, cl_configable.NumberOfFilms)
+                                                        TriggerServerEvent("rt-polaroid:server:add-photo-item", image.attachments[1].proxy_url, rand)
+                                                        TriggerEvent("inventory:client:ItemBox", QBCore.Shared.Items["polaroidfilm"], "add")
+                                                    else
+                                                        TriggerServerEvent("rt-polaroid:server:add-photo-item", image.attachments[1].proxy_url, 1)
+                                                        TriggerEvent("inventory:client:ItemBox", QBCore.Shared.Items["polaroidfilm"], "add")
+                                                    end 
                                                 else
-                                                    TriggerServerEvent("nrp-polaroid:server:add-photo-item", image.attachments[1].proxy_url, border)
+                                                    TriggerServerEvent("rt-polaroid:server:add-photo-item", image.attachments[1].proxy_url, border)
                                                     TriggerEvent("inventory:client:ItemBox", QBCore.Shared.Items["polaroidfilm"], "add")
                                                 end
                                                 ammo = ammo - 1
@@ -181,7 +185,7 @@ RegisterNetEvent("nrp-polaroid:client:use-camera", function()
                             local info = {
                                 film = ammo
                             }
-                            TriggerServerEvent("nrp-polaroid:server:add-photo-film", bordername, info)
+                            TriggerServerEvent("rt-polaroid:server:add-photo-film", bordername, info)
                             TriggerEvent("inventory:client:ItemBox", QBCore.Shared.Items[bordername], "add")
                             ammo = 0
                             border = nil
@@ -213,7 +217,7 @@ RegisterNetEvent("nrp-polaroid:client:use-camera", function()
     end
 end)
 
-RegisterNetEvent("nrp-polaroid:client:use-photo", function(url, border)
+RegisterNetEvent("rt-polaroid:client:use-photo", function(url, border)
     if not photoactive then
         photoactive = true
         SetNuiFocus(true, true)
@@ -240,7 +244,7 @@ RegisterNUICallback("Close", function()
     ClearPedTasks(PlayerPedId())
 end)
 
-RegisterNetEvent("nrp-polaroid:client:use-film", function(item, bordercolor)
+RegisterNetEvent("rt-polaroid:client:use-film", function(item, bordercolor)
     if bordercolor and item then
         if ammo == 0 then
             TriggerServerEvent("QBCore:Server:RemoveItem", item.name, 1)
