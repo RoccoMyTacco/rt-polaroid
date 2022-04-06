@@ -1,0 +1,40 @@
+#popup {
+    display: none;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 1001;
+}
+
+.popupclass {
+    margin:0px auto;
+    margin-top:120px;
+    position:relative;
+    padding:0px;
+    width:100vh;
+    min-height:250px;
+}
+
+.image1 {
+    position: relative;
+    top: 0;
+    left: 8em;
+    -webkit-filter: blur(1px);
+    -moz-filter: blur(1px);
+    -o-filter: blur(1px);
+    -ms-filter: blur(1px);
+    filter: blur(1px);
+    
+  }
+
+  .image2 {
+    position: absolute;
+    top: 4.6em;
+    left: 12em;
+    -webkit-filter: blur(0.4px);
+    -moz-filter: blur(0.4px);
+    -o-filter: blur(0.4px);
+    -ms-filter: blur(0.4px);
+    filter: blur(0.4px);
+  }
