@@ -1,5 +1,8 @@
 # RT-polaroid
 
+# New Items
+
+To Create a new film you need to name the .png to "film" followed by the next number ie "film13.png" and so on. When you create the new item in the sv_configable you then take the number you put after film and put it at the end of rt-polaroid:client:use-film.
 # Items
 
 ["polaroid"] 		 	 		= {["name"] = "polaroid", 						["label"] = "Polaroid Camera", 			["weight"] = 1000, 	["type"] = "item", 			["image"] = "polaroid png", 				["unique"] = true, 		["useable"] = true, 		["shouldClose"] = true,    ["combinable"] = nil,   ["description"] = "Hey cool camera bro or bro-et"},
@@ -17,7 +20,3 @@
 ["purpfilm"] 			 		= {["name"] = "purpfilm", 						["label"] = "Pack of Purple Film", 		["weight"] = 20, 	["type"] = "item", 			["image"] = "pfilm.png", 				["unique"] = true, 		["useable"] = true, 		["shouldClose"] = true,    ["combinable"] = nil,   ["description"] = "A pack of 5 films"},
 ["byefilm"] 			 		= {["name"] = "byefilm", 						["label"] = "Pack of Yellow Film", 		["weight"] = 20, 	["type"] = "item", 			["image"] = "pfilm.png", 				["unique"] = true, 		["useable"] = true, 		["shouldClose"] = true,    ["combinable"] = nil,   ["description"] = "A pack of 5 films"},
 ["randfilm"] 			 		= {["name"] = "randfilm", 						["label"] = "Pack of Random Film", 		["weight"] = 20, 	["type"] = "item", 			["image"] = "pfilm.png", 				["unique"] = true, 		["useable"] = true, 		["shouldClose"] = true,    ["combinable"] = nil,   ["description"] = "A pack of 5 films"},
-
-# New Items
-
-To Create a new film you need to name the .png to "film" followed by the next number ie "film13.png" and so on. When you create the new item in the sv_configable you then take the number you put after film and put it at the end of rt-polaroid:client:use-film.
