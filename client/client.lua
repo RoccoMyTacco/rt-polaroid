@@ -135,12 +135,20 @@ RegisterNetEvent("rt-polaroid:client:use-camera", function()
                          SetTimecycleModifierStrength(cl_configable.CameraEffectStrength)
                     end
         
-                    local cam = CreateCam("DEFAULT_SCRIPTED_FLY_CAMERA", true)
-                    AttachCamToEntity(cam, lPed, 0.0, 1.0, 0.5, true)
+                    local cam = CreateCam(cl_configable.CameraName, true)
+                    AttachCamToEntity(cam, lPed, cl_configable.CameraX, cl_configable.CameraY, cl_configable.CameraZ, true)
                     SetCamRot(cam, 0.0,0.0,GetEntityHeading(lPed))
                     SetCamFov(cam, fov)
                     RenderScriptCams(true, false, 0, 1, 0)
+                    
+                    DisableControlAction(1, 106, true)
+                    DisableControlAction(1, 140, true)
+                    DisableControlAction(1, 141, true)
+                    DisableControlAction(1, 142, true)
+                    DisableControlAction(1, 37, true)
                     DisableControlAction(0, 176, true)
+                    DisablePlayerFiring(lPed, true)
+
                     if not cl_configable.UseQBDrawText then
                         QBCore.Functions.Notify("You have ".. ammo .. " film in the camera", "error", 2000)
                     else
@@ -221,7 +229,6 @@ RegisterNetEvent("rt-polaroid:client:use-photo", function(url, border)
     if not photoactive then
         photoactive = true
         SetNuiFocus(true, true)
-        SendNUIMessage({action = "Show", photo = url, film = border})
 
         local ped = PlayerPedId()
         SharedRequestAnimDict("amb@world_human_tourist_map@male@base", function()
@@ -232,7 +239,7 @@ RegisterNetEvent("rt-polaroid:client:use-photo", function(url, border)
             LoadPropDict("prop_cs_polaroid")
         end
         photoprop = CreateObject(GetHashKey("prop_cs_polaroid"), x, y, z+0.2,  true,  true, true)
-        AttachEntityToEntity(photoprop, ped, GetPedBoneIndex(ped, 6286), 0.03, 0.0, -0.04, 0.0, 180.0, 2.0, true, true, false, true, 1, true)
+        AttachEntityToEntity(photoprop, ped, GetPedBoneIndex(ped, 6286), 0.04, 0.0, -0.07, -50.0, 280.0, 2.0, true, true, false, true, 1, true)
         SetModelAsNoLongerNeeded("prop_cs_polaroid")
     end
 end)

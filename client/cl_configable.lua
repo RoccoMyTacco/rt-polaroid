@@ -21,3 +21,11 @@ cl_configable.MaxZoom = 60.0
 cl_configable.MinZoom = 50.0 ---smaller = more zoom---
 
 cl_configable.ZoomSpeed = 10.0
+
+cl_configable.CameraX = 0.0
+
+cl_configable.CameraY = 1.0
+
+cl_configable.CameraZ = 0.5
+
+cl_configable.CameraName = "DEFAULT_SCRIPTED_FLY_CAMERA"

@@ -4,7 +4,7 @@ sv_configable = {}
 
 sv_configable.Webhook = 
 
-sv_configable.AttachCID = false
+sv_configable.AttachCID = false ---attach player Citizenid to the picture
 
 QBCore.Functions.CreateUseableItem("polaroid", function(source, item)
     local src = source
@@ -13,7 +13,7 @@ end)
 
 QBCore.Functions.CreateUseableItem("polaroidfilm", function(source, item)
     local src = source
-    if item.info and item.info.photourl then
+    if item.info.border and item.info.photourl then
         TriggerClientEvent("rt-polaroid:client:use-photo", src, item.info.photourl, item.info.border)
     end
 end)
