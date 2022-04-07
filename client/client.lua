@@ -162,14 +162,14 @@ RegisterNetEvent("rt-polaroid:client:use-camera", function()
                                                 if border == 0 then
                                                     if cl_configable.NumberOfFilms then
                                                         local rand = math.random(1, cl_configable.NumberOfFilms)
-                                                        TriggerServerEvent("rt-polaroid:server:add-photo-item", image.attachments[1].proxy_url, rand)
+                                                        TriggerServerEvent("rt-polaroid:server:add-photo-item", json.encode(image.attachments[1].proxy_url), rand)
                                                         TriggerEvent("inventory:client:ItemBox", QBCore.Shared.Items["polaroidfilm"], "add")
                                                     else
-                                                        TriggerServerEvent("rt-polaroid:server:add-photo-item", image.attachments[1].proxy_url, 1)
+                                                        TriggerServerEvent("rt-polaroid:server:add-photo-item", json.encode(image.attachments[1].proxy_url), 1)
                                                         TriggerEvent("inventory:client:ItemBox", QBCore.Shared.Items["polaroidfilm"], "add")
                                                     end 
                                                 else
-                                                    TriggerServerEvent("rt-polaroid:server:add-photo-item", image.attachments[1].proxy_url, border)
+                                                    TriggerServerEvent("rt-polaroid:server:add-photo-item", json.encode(image.attachments[1].proxy_url), border)
                                                     TriggerEvent("inventory:client:ItemBox", QBCore.Shared.Items["polaroidfilm"], "add")
                                                 end
                                                 ammo = ammo - 1

@@ -1,8 +1,10 @@
 local QBCore = exports['qb-core']:GetCoreObject()
 
-local sv_configable = {}
+sv_configable = {}
 
-sv_configable.Webhook = "https://discordapp.com/api/webhooks/960404539633188914/nwwI2BxYtFsiOTLkudLo95M8g3gQkisrAiNCfKuFZyWudPz54pMuWlQ50ONc1R--AQO5"
+sv_configable.Webhook = 
+
+sv_configable.AttachCID = false
 
 QBCore.Functions.CreateUseableItem("polaroid", function(source, item)
     local src = source
@@ -14,6 +16,7 @@ QBCore.Functions.CreateUseableItem("polaroidfilm", function(source, item)
     if item.info and item.info.photourl then
         TriggerClientEvent("rt-polaroid:client:use-photo", src, item.info.photourl, item.info.border)
     end
+end)
 
 QBCore.Functions.CreateUseableItem("yellowfilm", function(source, item)
     local src = source

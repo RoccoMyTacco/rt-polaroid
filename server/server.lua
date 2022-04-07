@@ -8,7 +8,7 @@ RegisterNetEvent("rt-polaroid:server:add-photo-item", function(url, film)
             photourl = url,
             border = film
         }
-        if Config.AttachCID then
+        if sv_configable.AttachCID then
             info.id = ply.PlayerData.citizenid
         end
         ply.Functions.AddItem("polaroidfilm", 1, nil, info)

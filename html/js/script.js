@@ -5,7 +5,7 @@ function polaroidshow(source, film) {
         $('#polaroid').fadeIn('slow');
         $('.polaroidshow').fadeIn('slow');
         $('<img class="picture" src='+source+' style = "position: absolute; width:44.7em; height: 38.5em;">').appendTo('.polaroidshow')
-        $('<img class="border" src="./img/film'+film+'.png" style = "width:53.2em; height: 53.2em;"/>').appendTo('.polaroidshow')
+        $('<img class="borderfilm" src="./img/film'+film+'.png" style = "width:53.2em; height: 53.2em;"/>').appendTo('.polaroidshow')
         pshow = true
     }
 }
