@@ -2,7 +2,7 @@
 
 # New Items
 
-To Create a new film you need to name the .png to "film" followed by the next number ie "film13.png" and so on. When you create the new item in the sv_configable you then take the number you put after film and put it at the end of rt-polaroid:client:use-film.
+To Create a new film you need to name the .png to "film" followed by the next number ie "film14.png" and so on. When you create the new item in the sv_configable you then take the number you put after film and put it at the end of rt-polaroid:client:use-film.
 # Items
 
 ["polaroid"] 		 	 		= {["name"] = "polaroid", 						["label"] = "Polaroid Camera", 			["weight"] = 1000, 	["type"] = "item", 			["image"] = "polaroid png", 				["unique"] = true, 		["useable"] = true, 		["shouldClose"] = true,    ["combinable"] = nil,   ["description"] = "Hey cool camera bro or bro-et"},

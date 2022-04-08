@@ -130,9 +130,11 @@ RegisterNetEvent("rt-polaroid:client:use-camera", function()
                     active = true
                     Wait(500)
 
-                    if cl_configable.CameraEffect then
+                    if cl_configable.CameraEffect ~= "" then
                         SetTimecycleModifier(cl_configable.CameraEffect)
-                         SetTimecycleModifierStrength(cl_configable.CameraEffectStrength)
+                        if cl_configable.CameraEffectStrength ~= "" then
+                             SetTimecycleModifierStrength(cl_configable.CameraEffectStrength)
+                        end
                     end
         
                     local cam = CreateCam(cl_configable.CameraName, true)

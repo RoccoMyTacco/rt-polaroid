@@ -2,9 +2,9 @@ local QBCore = exports['qb-core']:GetCoreObject()
 
 sv_configable = {}
 
-sv_configable.Webhook = 
+sv_configable.Webhook = --Discord webhook
 
-sv_configable.AttachCID = false ---attach player Citizenid to the picture
+sv_configable.AttachCID = false ---attach player Citizenid to the polaroidfilm item
 
 QBCore.Functions.CreateUseableItem("polaroid", function(source, item)
     local src = source
