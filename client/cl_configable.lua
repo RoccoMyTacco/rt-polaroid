@@ -6,7 +6,7 @@ cl_configable.CameraEffect = "phone_cam3" -- Camera Effect(leave "" for no camer
 
 cl_configable.CameraEffectStrength = 1.0 -- Camera Effect Strength
 
-cl_configable.NumberOfFilms = 12 ---Number of film borders for the random border item---
+cl_configable.NumberOfFilms = 13 ---Number of film borders for the random border item---
 
 cl_configable.CameraProp = "prop_pap_camera_01" -- Prop when using the polaroid camera
 
