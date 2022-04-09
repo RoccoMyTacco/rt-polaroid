@@ -231,7 +231,8 @@ RegisterNetEvent("rt-polaroid:client:use-photo", function(url, border)
     if not photoactive then
         photoactive = true
         SetNuiFocus(true, true)
-
+        SendNUIMessage({action = "Show", photo = url, film = border})
+        
         local ped = PlayerPedId()
         SharedRequestAnimDict("amb@world_human_tourist_map@male@base", function()
             TaskPlayAnim(ped, "amb@world_human_tourist_map@male@base", "base", 2.0, 2.0, -1, 1, 0, false, false, false)
