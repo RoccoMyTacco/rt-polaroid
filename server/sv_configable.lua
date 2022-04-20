@@ -2,7 +2,7 @@ local QBCore = exports['qb-core']:GetCoreObject()
 
 sv_configable = {}
 
-sv_configable.Webhook = --Discord webhook
+sv_configable.Webhook = "" --Discord webhook
 
 sv_configable.AttachCID = false ---attach player Citizenid to the polaroidfilm item
 

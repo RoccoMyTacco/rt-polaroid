@@ -27,7 +27,8 @@ QBCore.Functions.CreateCallback("rt-polaroid:server:webhook",function(source,cb)
 	if sv_configable.Webhook ~= "" then
 		cb(sv_configable.Webhook)
 	else
-		cb(nil)
+		print("Invalid Webhook")
+        cb(nil)
 	end
 end)
 

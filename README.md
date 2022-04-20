@@ -1,5 +1,8 @@
 # RT-polaroid
 
+# Install 
+Add a Discord webhook to sv_configable!
+
 # New Items
 
 To Create a new film you need to name the .png to "film" followed by the next number ie "film14.png" and so on. 
