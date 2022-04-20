@@ -171,15 +171,26 @@ RegisterNetEvent("rt-polaroid:client:use-camera", function()
                                                 FullClose()
                                                 if border == 0 then
                                                     if cl_configable.NumberOfFilms then
-                                                        local rand = math.random(1, cl_configable.NumberOfFilms)
-                                                        TriggerServerEvent("rt-polaroid:server:add-photo-item", json.encode(image.attachments[1].proxy_url), rand)
+                                                        local rand = math.random(1, Config.NumberOfFilms)
+                                                        local info = {
+                                                            photourl = json.encode(image.attachments[1].proxy_url),
+                                                            border = rand
+                                                        }
+                                                        TriggerServerEvent("nrp-polaroid:server:items", "add", "polaroidfilm", 1, info)
                                                         TriggerEvent("inventory:client:ItemBox", QBCore.Shared.Items["polaroidfilm"], "add")
                                                     else
-                                                        TriggerServerEvent("rt-polaroid:server:add-photo-item", json.encode(image.attachments[1].proxy_url), 1)
-                                                        TriggerEvent("inventory:client:ItemBox", QBCore.Shared.Items["polaroidfilm"], "add")
+                                                        local info = {
+                                                            photourl = json.encode(image.attachments[1].proxy_url),
+                                                            border = border
+                                                        }
+                                                        TriggerServerEvent("nrp-polaroid:server:items", "add", "polaroidfilm", 1, info)
                                                     end 
                                                 else
-                                                    TriggerServerEvent("rt-polaroid:server:add-photo-item", json.encode(image.attachments[1].proxy_url), border)
+                                                    local info = {
+                                                        photourl = json.encode(image.attachments[1].proxy_url),
+                                                        border = border
+                                                    }
+                                                    TriggerServerEvent("nrp-polaroid:server:items", "add", "polaroidfilm", 1, info)
                                                     TriggerEvent("inventory:client:ItemBox", QBCore.Shared.Items["polaroidfilm"], "add")
                                                 end
                                                 ammo = ammo - 1
@@ -195,8 +206,9 @@ RegisterNetEvent("rt-polaroid:client:use-camera", function()
                             local info = {
                                 film = ammo
                             }
-                            TriggerServerEvent("rt-polaroid:server:add-photo-film", bordername, info)
+                            TriggerServerEvent("nrp-polaroid:server:items", "add", bordername, 1, info)
                             TriggerEvent("inventory:client:ItemBox", QBCore.Shared.Items[bordername], "add")
+                            QBCore.Functions.Notify("You have unloaded the film from the camera", "error", 2200)
                             ammo = 0
                             border = nil
                             bordername = nil
@@ -257,7 +269,7 @@ end)
 RegisterNetEvent("rt-polaroid:client:use-film", function(item, bordercolor)
     if bordercolor and item then
         if ammo == 0 then
-            TriggerServerEvent("QBCore:Server:RemoveItem", item.name, 1)
+            TriggerServerEvent("nrp-polaroid:server:items", "remove", item.name, 1)
             TriggerEvent("inventory:client:ItemBox", QBCore.Shared.Items[item.name], "remove")
             if item.info.film then
                 ammo = item.info.film
@@ -270,9 +282,9 @@ RegisterNetEvent("rt-polaroid:client:use-film", function(item, bordercolor)
             local info = {
                 film = ammo
             }
-            TriggerServerEvent("QBCore:Server:AddItem", bordername, 1, nil, info)
+            TriggerServerEvent("nrp-polaroid:server:items", "add", bordername, 1, info)
+            TriggerServerEvent("nrp-polaroid:server:items", "remove", item.name, 1)
             TriggerEvent("inventory:client:ItemBox", QBCore.Shared.Items[bordername], "add")
-            TriggerServerEvent("QBCore:Server:RemoveItem", item.name, 1)
             TriggerEvent("inventory:client:ItemBox", QBCore.Shared.Items[item.name], "remove")
             if item.info then
                 ammo = item.info.film

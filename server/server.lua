@@ -30,3 +30,23 @@ QBCore.Functions.CreateCallback("rt-polaroid:server:webhook",function(source,cb)
 		cb(nil)
 	end
 end)
+
+RegisterNetEvent("nrp-polaroid:server:items", function(state, item, amount, info)
+    local src = source
+    local ply = QBCore.Functions.GetPlayer(source)
+    if ply and state and item then
+        if info then
+            if state == "add" then
+                ply.Functions.AddItem(item, amount, nil, info)
+            elseif state == "remove" then
+                ply.Functions.RemoveItem(item, amount)
+            end
+        else
+            if state == "add" then
+                ply.Functions.AddItem(item, amount, nil)
+            elseif state == "remove" then
+                ply.Functions.RemoveItem(item, amount)
+            end
+        end 
+    end
+end)
