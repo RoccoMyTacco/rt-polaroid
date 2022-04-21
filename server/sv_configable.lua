@@ -105,3 +105,11 @@ QBCore.Functions.CreateUseableItem("floralfilm", function(source, item)
         TriggerClientEvent("rt-polaroid:client:use-film", src, item, "floralpink")
     end
 end)
+
+QBCore.Functions.CreateUseableItem("randfilm", function(source, item)
+    local src = source
+    local Player = QBCore.Functions.GetPlayer(src)
+    if Player.Functions.GetItemByName('polaroid') ~= nil then
+        TriggerClientEvent("rt-polaroid:client:use-film", src, item, "rand")
+    end
+end)

@@ -1,5 +1,19 @@
 cl_configable = {}
 
+cl_configable.films = {
+    [1] = "black",
+    [2] = "blue",
+    [3] = "floralpink",
+    [4] = "green",
+    [5] = "grey",
+    [6] = "lightblue",
+    [7] = "orange",
+    [8] = "pink",
+    [9] = "purple",
+    [10] = "red",
+    [11] = "yellow",
+}
+
 cl_configable.DefaultPictureAmount = 5 --- Default amount of film in each
 
 cl_configable.CameraEffect = "phone_cam3" -- Camera Effect(leave "" for no camera effect)
