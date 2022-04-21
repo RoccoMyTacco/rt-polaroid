@@ -152,7 +152,11 @@ RegisterNetEvent("rt-polaroid:client:use-camera", function()
                     DisablePlayerFiring(lPed, true)
 
                     if not cl_configable.UseQBDrawText then
-                        QBCore.Functions.Notify("You have ".. ammo .. " film in the camera", "error", 2000)
+                        if ammo <= 0 then
+                            QBCore.Functions.Notify("You have no film in the camera", "error", 2000)
+                        else
+                            QBCore.Functions.Notify("You have ".. ammo .. " film in the camera", "error", 2000)
+                        end
                     else
                         exports['qb-drawtext']:DrawText("You have ".. ammo .. " film in the camera",'right')
                     end
