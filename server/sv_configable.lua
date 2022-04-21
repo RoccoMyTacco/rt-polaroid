@@ -22,7 +22,7 @@ QBCore.Functions.CreateUseableItem("yellowfilm", function(source, item)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     if Player.Functions.GetItemByName('polaroid') ~= nil then
-        TriggerClientEvent("rt-polaroid:client:use-film", src, item, 1)
+        TriggerClientEvent("rt-polaroid:client:use-film", src, item, "yellow")
     end
 end)
 
@@ -30,7 +30,7 @@ QBCore.Functions.CreateUseableItem("orangefilm", function(source, item)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     if Player.Functions.GetItemByName('polaroid') ~= nil then
-        TriggerClientEvent("rt-polaroid:client:use-film", src, item, 2)
+        TriggerClientEvent("rt-polaroid:client:use-film", src, item, "orange")
     end
 end)
 
@@ -38,7 +38,7 @@ QBCore.Functions.CreateUseableItem("greyfilm", function(source, item)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     if Player.Functions.GetItemByName('polaroid') ~= nil then
-        TriggerClientEvent("rt-polaroid:client:use-film", src, item, 3)
+        TriggerClientEvent("rt-polaroid:client:use-film", src, item, "grey")
     end
 end)
 
@@ -46,15 +46,7 @@ QBCore.Functions.CreateUseableItem("blackfilm", function(source, item)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     if Player.Functions.GetItemByName('polaroid') ~= nil then
-        TriggerClientEvent("rt-polaroid:client:use-film", src, item, 4)
-    end
-end)
-
-QBCore.Functions.CreateUseableItem("pureblackfilm", function(source, item)
-    local src = source
-    local Player = QBCore.Functions.GetPlayer(src)
-    if Player.Functions.GetItemByName('polaroid') ~= nil then
-        TriggerClientEvent("rt-polaroid:client:use-film", src, item, 5)
+        TriggerClientEvent("rt-polaroid:client:use-film", src, item, "black")
     end
 end)
 
@@ -62,7 +54,7 @@ QBCore.Functions.CreateUseableItem("lightbluefilm", function(source, item)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     if Player.Functions.GetItemByName('polaroid') ~= nil then
-        TriggerClientEvent("rt-polaroid:client:use-film", src, item, 6)
+        TriggerClientEvent("rt-polaroid:client:use-film", src, item, "lightblue")
     end
 end)
 
@@ -70,7 +62,7 @@ QBCore.Functions.CreateUseableItem("greenfilm", function(source, item)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     if Player.Functions.GetItemByName('polaroid') ~= nil then
-        TriggerClientEvent("rt-polaroid:client:use-film", src, item, 7)
+        TriggerClientEvent("rt-polaroid:client:use-film", src, item, "green")
     end
 end)
 
@@ -78,7 +70,7 @@ QBCore.Functions.CreateUseableItem("pinkfilm", function(source, item)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     if Player.Functions.GetItemByName('polaroid') ~= nil then
-        TriggerClientEvent("rt-polaroid:client:use-film", src, item, 8)
+        TriggerClientEvent("rt-polaroid:client:use-film", src, item, "pink")
     end
 end)
 
@@ -86,7 +78,7 @@ QBCore.Functions.CreateUseableItem("redfilm", function(source, item)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     if Player.Functions.GetItemByName('polaroid') ~= nil then
-        TriggerClientEvent("rt-polaroid:client:use-film", src, item, 9)
+        TriggerClientEvent("rt-polaroid:client:use-film", src, item, "red")
     end
 end)
 
@@ -94,7 +86,7 @@ QBCore.Functions.CreateUseableItem("bluefilm", function(source, item)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     if Player.Functions.GetItemByName('polaroid') ~= nil then
-        TriggerClientEvent("rt-polaroid:client:use-film", src, item, 10)
+        TriggerClientEvent("rt-polaroid:client:use-film", src, item, "blue")
     end
 end)
 
@@ -102,15 +94,7 @@ QBCore.Functions.CreateUseableItem("purpfilm", function(source, item)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     if Player.Functions.GetItemByName('polaroid') ~= nil then
-        TriggerClientEvent("rt-polaroid:client:use-film", src, item, 11)
-    end
-end)
-
-QBCore.Functions.CreateUseableItem("byefilm", function(source, item)
-    local src = source
-    local Player = QBCore.Functions.GetPlayer(src)
-    if Player.Functions.GetItemByName('polaroid') ~= nil then
-        TriggerClientEvent("rt-polaroid:client:use-film", src, item, 12)
+        TriggerClientEvent("rt-polaroid:client:use-film", src, item, "purple")
     end
 end)
 
@@ -118,14 +102,6 @@ QBCore.Functions.CreateUseableItem("floralfilm", function(source, item)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     if Player.Functions.GetItemByName('polaroid') ~= nil then
-        TriggerClientEvent("rt-polaroid:client:use-film", src, item, 13)
-    end
-end)
-
-QBCore.Functions.CreateUseableItem("randfilm", function(source, item)
-    local src = source
-    local Player = QBCore.Functions.GetPlayer(src)
-    if Player.Functions.GetItemByName('polaroid') ~= nil then
-        TriggerClientEvent("rt-polaroid:client:use-film", src, item, 0)
+        TriggerClientEvent("rt-polaroid:client:use-film", src, item, "floralpink")
     end
 end)

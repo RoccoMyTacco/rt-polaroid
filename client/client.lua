@@ -156,6 +156,9 @@ RegisterNetEvent("rt-polaroid:client:use-camera", function()
                     else
                         exports['qb-drawtext']:DrawText("You have ".. ammo .. " film in the camera",'right')
                     end
+                    if ammo > 0 then
+                        QBCore.Functions.Notify("Press F To unload film from polaroid", "error", 2000)
+                    end
                     while active and not IsEntityDead(lPed) and (GetVehiclePedIsIn(lPed) == vehicle) and true do
                         if IsControlJustPressed(0, 177) or IsControlJustPressed(0, 202) then
                             PlaySoundFrontend(-1, "SELECT", "HUD_FRONTEND_DEFAULT_SOUNDSET", false)
@@ -169,30 +172,12 @@ RegisterNetEvent("rt-polaroid:client:use-camera", function()
                                             exports['screenshot-basic']:requestScreenshotUpload(tostring(hook), "files[]", function(data)
                                                 local image = json.decode(data)
                                                 FullClose()
-                                                if border == 0 then
-                                                    if cl_configable.NumberOfFilms then
-                                                        local rand = math.random(1, Config.NumberOfFilms)
-                                                        local info = {
-                                                            photourl = json.encode(image.attachments[1].proxy_url),
-                                                            border = rand
-                                                        }
-                                                        TriggerServerEvent("nrp-polaroid:server:items", "add", "polaroidfilm", 1, info)
-                                                        TriggerEvent("inventory:client:ItemBox", QBCore.Shared.Items["polaroidfilm"], "add")
-                                                    else
-                                                        local info = {
-                                                            photourl = json.encode(image.attachments[1].proxy_url),
-                                                            border = border
-                                                        }
-                                                        TriggerServerEvent("nrp-polaroid:server:items", "add", "polaroidfilm", 1, info)
-                                                    end 
-                                                else
-                                                    local info = {
-                                                        photourl = json.encode(image.attachments[1].proxy_url),
-                                                        border = border
-                                                    }
-                                                    TriggerServerEvent("nrp-polaroid:server:items", "add", "polaroidfilm", 1, info)
-                                                    TriggerEvent("inventory:client:ItemBox", QBCore.Shared.Items["polaroidfilm"], "add")
-                                                end
+                                                local info = {
+                                                    photourl = json.encode(image.attachments[1].proxy_url),
+                                                    border = border
+                                                }
+                                                TriggerServerEvent("nrp-polaroid:server:items", "add", "polaroidfilm", 1, info)
+                                                TriggerEvent("inventory:client:ItemBox", QBCore.Shared.Items["polaroidfilm"], "add")
                                                 ammo = ammo - 1
                                                 if not cl_configable.UseQBDrawText then
                                                     QBCore.Functions.Notify("You have ".. ammo .. " film in the camera", "error", 3000)
