@@ -8,7 +8,7 @@ sv_configable.AttachCID = false ---attach player Citizenid to the polaroidfilm i
 
 QBCore.Functions.CreateUseableItem("polaroid", function(source, item)
     local src = source
-    TriggerClientEvent("rt-polaroid:client:use-camera", src)
+    TriggerClientEvent("rt-polaroid:client:use-camera", src, item)
 end)
 
 QBCore.Functions.CreateUseableItem("polaroidfilm", function(source, item)
@@ -22,7 +22,8 @@ QBCore.Functions.CreateUseableItem("yellowfilm", function(source, item)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     if Player.Functions.GetItemByName('polaroid') ~= nil then
-        TriggerClientEvent("rt-polaroid:client:use-film", src, item, "yellow")
+        local camera = Player.Functions.GetItemByName('polaroid')
+        TriggerClientEvent("rt-polaroid:client:use-film", src, item, camera, camera, "yellow")
     end
 end)
 
@@ -30,7 +31,8 @@ QBCore.Functions.CreateUseableItem("orangefilm", function(source, item)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     if Player.Functions.GetItemByName('polaroid') ~= nil then
-        TriggerClientEvent("rt-polaroid:client:use-film", src, item, "orange")
+        local camera = Player.Functions.GetItemByName('polaroid')
+        TriggerClientEvent("rt-polaroid:client:use-film", src, item, camera, "orange")
     end
 end)
 
@@ -38,7 +40,8 @@ QBCore.Functions.CreateUseableItem("greyfilm", function(source, item)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     if Player.Functions.GetItemByName('polaroid') ~= nil then
-        TriggerClientEvent("rt-polaroid:client:use-film", src, item, "grey")
+        local camera = Player.Functions.GetItemByName('polaroid')
+        TriggerClientEvent("rt-polaroid:client:use-film", src, item, camera, "grey")
     end
 end)
 
@@ -46,7 +49,8 @@ QBCore.Functions.CreateUseableItem("blackfilm", function(source, item)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     if Player.Functions.GetItemByName('polaroid') ~= nil then
-        TriggerClientEvent("rt-polaroid:client:use-film", src, item, "black")
+        local camera = Player.Functions.GetItemByName('polaroid')
+        TriggerClientEvent("rt-polaroid:client:use-film", src, item, camera, "black")
     end
 end)
 
@@ -54,7 +58,8 @@ QBCore.Functions.CreateUseableItem("lightbluefilm", function(source, item)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     if Player.Functions.GetItemByName('polaroid') ~= nil then
-        TriggerClientEvent("rt-polaroid:client:use-film", src, item, "lightblue")
+        local camera = Player.Functions.GetItemByName('polaroid')
+        TriggerClientEvent("rt-polaroid:client:use-film", src, item, camera, "lightblue")
     end
 end)
 
@@ -62,7 +67,8 @@ QBCore.Functions.CreateUseableItem("greenfilm", function(source, item)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     if Player.Functions.GetItemByName('polaroid') ~= nil then
-        TriggerClientEvent("rt-polaroid:client:use-film", src, item, "green")
+        local camera = Player.Functions.GetItemByName('polaroid')
+        TriggerClientEvent("rt-polaroid:client:use-film", src, item, camera, "green")
     end
 end)
 
@@ -70,7 +76,8 @@ QBCore.Functions.CreateUseableItem("pinkfilm", function(source, item)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     if Player.Functions.GetItemByName('polaroid') ~= nil then
-        TriggerClientEvent("rt-polaroid:client:use-film", src, item, "pink")
+        local camera = Player.Functions.GetItemByName('polaroid')
+        TriggerClientEvent("rt-polaroid:client:use-film", src, item, camera, "pink")
     end
 end)
 
@@ -78,7 +85,8 @@ QBCore.Functions.CreateUseableItem("redfilm", function(source, item)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     if Player.Functions.GetItemByName('polaroid') ~= nil then
-        TriggerClientEvent("rt-polaroid:client:use-film", src, item, "red")
+        local camera = Player.Functions.GetItemByName('polaroid')
+        TriggerClientEvent("rt-polaroid:client:use-film", src, item, camera, "red")
     end
 end)
 
@@ -86,7 +94,8 @@ QBCore.Functions.CreateUseableItem("bluefilm", function(source, item)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     if Player.Functions.GetItemByName('polaroid') ~= nil then
-        TriggerClientEvent("rt-polaroid:client:use-film", src, item, "blue")
+        local camera = Player.Functions.GetItemByName('polaroid')
+        TriggerClientEvent("rt-polaroid:client:use-film", src, item, camera, "blue")
     end
 end)
 
@@ -94,7 +103,8 @@ QBCore.Functions.CreateUseableItem("purpfilm", function(source, item)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     if Player.Functions.GetItemByName('polaroid') ~= nil then
-        TriggerClientEvent("rt-polaroid:client:use-film", src, item, "purple")
+        local camera = Player.Functions.GetItemByName('polaroid')
+        TriggerClientEvent("rt-polaroid:client:use-film", src, item, camera, "purple")
     end
 end)
 
@@ -102,7 +112,8 @@ QBCore.Functions.CreateUseableItem("floralfilm", function(source, item)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     if Player.Functions.GetItemByName('polaroid') ~= nil then
-        TriggerClientEvent("rt-polaroid:client:use-film", src, item, "floralpink")
+        local camera = Player.Functions.GetItemByName('polaroid')
+        TriggerClientEvent("rt-polaroid:client:use-film", src, item, camera, "floralpink")
     end
 end)
 
@@ -110,6 +121,7 @@ QBCore.Functions.CreateUseableItem("randfilm", function(source, item)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     if Player.Functions.GetItemByName('polaroid') ~= nil then
-        TriggerClientEvent("rt-polaroid:client:use-film", src, item, "rand")
+        local camera = Player.Functions.GetItemByName('polaroid')
+        TriggerClientEvent("rt-polaroid:client:use-film", src, item, camera, "rand")
     end
 end)

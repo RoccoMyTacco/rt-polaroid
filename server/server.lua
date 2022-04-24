@@ -32,7 +32,7 @@ QBCore.Functions.CreateCallback("rt-polaroid:server:webhook",function(source,cb)
 	end
 end)
 
-RegisterNetEvent("nrp-polaroid:server:items", function(state, item, amount, info)
+RegisterNetEvent("rt-polaroid:server:items", function(state, item, amount, info)
     local src = source
     local ply = QBCore.Functions.GetPlayer(source)
     if ply and state and item then
@@ -49,5 +49,28 @@ RegisterNetEvent("nrp-polaroid:server:items", function(state, item, amount, info
                 ply.Functions.RemoveItem(item, amount)
             end
         end 
+    end
+end)
+
+RegisterNetEvent('rt-polaroid:server:UpdateInfo', function(item, state, amount, border)
+    local src = source
+    local Player = QBCore.Functions.GetPlayer(source)
+    local items = Player.Functions.GetItemByName(item)
+    if state == 0 then
+        Player.PlayerData.items[items.slot].info.film = amount
+        if border then
+            Player.PlayerData.items[items.slot].info.border = border
+        end
+        Player.Functions.SetInventory(Player.PlayerData.items)
+    elseif state == 1  then
+        Player.PlayerData.items[items.slot].info.film = Player.PlayerData.items[items.slot].info.film + amount
+        Player.Functions.SetInventory(Player.PlayerData.items)
+    elseif state == 2 then 
+        Player.PlayerData.items[items.slot].info.film = Player.PlayerData.items[items.slot].info.film - amount
+        Player.Functions.SetInventory(Player.PlayerData.items)
+    elseif state == 3 then 
+        Player.PlayerData.items[items.slot].info.film = 0
+        Player.PlayerData.items[items.slot].info.border = nil
+        Player.Functions.SetInventory(Player.PlayerData.items)
     end
 end)

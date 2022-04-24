@@ -1,6 +1,6 @@
 cl_configable = {}
 
-cl_configable.films = {
+cl_configable.RandomFilms = {
     [1] = "black",
     [2] = "blue",
     [3] = "floralpink",
@@ -12,7 +12,7 @@ cl_configable.films = {
     [9] = "purple",
     [10] = "red",
     [11] = "yellow",
-}
+} -- For Random film
 
 cl_configable.DefaultPictureAmount = 5 --- Default amount of film in each
 

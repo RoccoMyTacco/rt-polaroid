@@ -10,10 +10,9 @@ local zoomspeed = cl_configable.ZoomSpeed
 local speed_lr = 8.0
 local speed_ud = 8.0 
 local fov = (fov_max+fov_min)*0.5
-local ammo = 0
-local border
 local bordername
 local presstake = false
+math.randomseed(GetGameTimer())
 
 local function SharedRequestAnimDict(animDict, cb)
 	if not HasAnimDictLoaded(animDict) then
@@ -105,7 +104,7 @@ function HandleZoom(cam)
     end
 end
 
-RegisterNetEvent("rt-polaroid:client:use-camera", function()
+RegisterNetEvent("rt-polaroid:client:use-camera", function(item)
     if not active then
         active = true
         local ped = PlayerPedId()
@@ -152,15 +151,15 @@ RegisterNetEvent("rt-polaroid:client:use-camera", function()
                     DisablePlayerFiring(lPed, true)
 
                     if not cl_configable.UseQBDrawText then
-                        if ammo <= 0 then
+                        if item.info.film == nil or item.info.film <= 0 then
                             QBCore.Functions.Notify("You have no film in the camera", "error", 2000)
                         else
-                            QBCore.Functions.Notify("You have ".. ammo .. " film in the camera", "error", 2000)
+                            QBCore.Functions.Notify("You have ".. item.info.film .. " film in the camera", "error", 2000)
                         end
                     else
-                        exports['qb-drawtext']:DrawText("You have ".. ammo .. " film in the camera",'right')
+                        exports['qb-drawtext']:DrawText("You have ".. item.info.film .. " film in the camera",'right')
                     end
-                    if ammo > 0 then
+                    if item.info.film and item.info.film > 0 then
                         QBCore.Functions.Notify("Press F To unload film from polaroid", "error", 2000)
                     end
                     while active and not IsEntityDead(lPed) and (GetVehiclePedIsIn(lPed) == vehicle) and true do
@@ -168,51 +167,49 @@ RegisterNetEvent("rt-polaroid:client:use-camera", function()
                             PlaySoundFrontend(-1, "SELECT", "HUD_FRONTEND_DEFAULT_SOUNDSET", false)
                             FullClose()
                         elseif IsDisabledControlJustPressed(0, 176) then
-                            if ammo > 0 then
-                                if not presstake then
-                                    presstake = true
-                                    QBCore.Functions.TriggerCallback("rt-polaroid:server:webhook", function(hook)
-                                        if hook then
-                                            exports['screenshot-basic']:requestScreenshotUpload(tostring(hook), "files[]", function(data)
-                                                local image = json.decode(data)
-                                                FullClose()
-                                                if border == "rand" then
-                                                    if cl_configable.films then
-                                                        local rand = math.random(1, #cl_configable.films)
+                            if item.info.film then
+                                if item.info.film > 0 then
+                                    if not presstake then
+                                        presstake = true
+                                        QBCore.Functions.TriggerCallback("rt-polaroid:server:webhook", function(hook)
+                                            if hook then
+                                                exports['screenshot-basic']:requestScreenshotUpload(tostring(hook), "files[]", function(data)
+                                                    local image = json.decode(data)
+                                                    FullClose()
+                                                    local newStr, replaced = string.gsub(item.info.border, "film", "")
+                                                    if newStr == "rand" then
+                                                        if cl_configable.RandomFilms then
+                                                            local rand = math.random(1, #cl_configable.RandomFilms)
+                                                            local info = {
+                                                                photourl = json.encode(image.attachments[1].proxy_url),
+                                                                border = cl_configable.RandomFilms[rand]
+                                                            }
+                                                            TriggerServerEvent("rt-polaroid:server:items", "add", "polaroidfilm", 1, info)
+                                                            TriggerEvent("inventory:client:ItemBox", QBCore.Shared.Items["polaroidfilm"], "add")
+                                                        end 
+                                                    else
                                                         local info = {
                                                             photourl = json.encode(image.attachments[1].proxy_url),
-                                                            border = cl_configable.films[rand]
+                                                            border = newStr
                                                         }
-                                                        TriggerServerEvent("nrp-polaroid:server:items", "add", "polaroidfilm", 1, info)
+                                                        TriggerServerEvent("rt-polaroid:server:items", "add", "polaroidfilm", 1, info)
                                                         TriggerEvent("inventory:client:ItemBox", QBCore.Shared.Items["polaroidfilm"], "add")
-                                                    end 
-                                                else
-                                                    local info = {
-                                                        photourl = json.encode(image.attachments[1].proxy_url),
-                                                        border = border
-                                                    }
-                                                    TriggerServerEvent("nrp-polaroid:server:items", "add", "polaroidfilm", 1, info)
-                                                    TriggerEvent("inventory:client:ItemBox", QBCore.Shared.Items["polaroidfilm"], "add")
-                                                end
-                                                ammo = ammo - 1
-                                                if not cl_configable.UseQBDrawText then
-                                                    QBCore.Functions.Notify("You have ".. ammo .. " film in the camera", "error", 3000)
-                                                end
-                                            end)						
-                                        end
-                                    end)
+                                                    end
+                                                    TriggerServerEvent("rt-polaroid:server:UpdateInfo", "polaroid", 2, 1)
+                                                end)						
+                                            end
+                                        end)
+                                    end
                                 end
                             end
-                        elseif IsControlPressed(0, 23) and ammo > 0 then
+                        elseif IsControlPressed(0, 23) and item.info.film > 0 then
                             local info = {
-                                film = ammo
+                                film = item.info.film
                             }
-                            TriggerServerEvent("nrp-polaroid:server:items", "add", bordername, 1, info)
-                            TriggerEvent("inventory:client:ItemBox", QBCore.Shared.Items[bordername], "add")
+                            TriggerServerEvent("rt-polaroid:server:items", "add", item.info.border .. "film", 1, info)
+                            TriggerEvent("inventory:client:ItemBox", QBCore.Shared.Items[item.info.border .. "film"], "add")
                             QBCore.Functions.Notify("You have unloaded the film from the camera", "error", 2200)
-                            ammo = 0
-                            border = nil
-                            bordername = nil
+                            TriggerServerEvent("rt-polaroid:server:UpdateInfo", "polaroid", 3)
                             FullClose()
                         end
         
@@ -267,33 +264,30 @@ RegisterNUICallback("Close", function()
     ClearPedTasks(PlayerPedId())
 end)
 
-RegisterNetEvent("rt-polaroid:client:use-film", function(item, bordercolor)
+RegisterNetEvent("rt-polaroid:client:use-film", function(item, camera, bordercolor)
     if bordercolor and item then
-        if ammo == 0 then
-            TriggerServerEvent("nrp-polaroid:server:items", "remove", item.name, 1)
+        if camera.info.film == nil or camera.info.film == 0 then
+            TriggerServerEvent("rt-polaroid:server:items", "remove", item.name, 1)
             TriggerEvent("inventory:client:ItemBox", QBCore.Shared.Items[item.name], "remove")
             if item.info.film then
-                ammo = item.info.film
+                TriggerServerEvent("rt-polaroid:server:UpdateInfo", "polaroid", 0, item.info.film, bordercolor)
             else
-                ammo = cl_configable.DefaultPictureAmount
+                TriggerServerEvent("rt-polaroid:server:UpdateInfo", "polaroid", 0, cl_configable.DefaultPictureAmount, bordercolor)
             end
-            border = bordercolor
-            bordername = item.name
         else
             local info = {
-                film = ammo
+                film = camera.info.film
             }
-            TriggerServerEvent("nrp-polaroid:server:items", "add", bordername, 1, info)
-            TriggerServerEvent("nrp-polaroid:server:items", "remove", item.name, 1)
-            TriggerEvent("inventory:client:ItemBox", QBCore.Shared.Items[bordername], "add")
+            local test = camera.info.border .. "film"
+            TriggerServerEvent("rt-polaroid:server:items", "add", test, 1, info)
+            TriggerServerEvent("rt-polaroid:server:items", "remove", item.name, 1)
+            TriggerEvent("inventory:client:ItemBox", QBCore.Shared.Items[test], "add")
             TriggerEvent("inventory:client:ItemBox", QBCore.Shared.Items[item.name], "remove")
-            if item.info then
-                ammo = item.info.film
+            if item.info.border then
+                TriggerServerEvent("rt-polaroid:server:UpdateInfo", "polaroid", 0, item.info.film, item.info.border)
             else
-                ammo = cl_configable.DefaultPictureAmount
+                TriggerServerEvent("rt-polaroid:server:UpdateInfo", "polaroid", 0, 5, bordercolor)
             end
-            border = bordercolor
-            bordername = item.name
 
         end
     end
