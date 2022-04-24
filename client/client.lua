@@ -212,6 +212,7 @@ RegisterNetEvent("rt-polaroid:client:use-camera", function(item)
                             QBCore.Functions.Notify("You have unloaded the film from the camera", "error", 2200)
                             TriggerServerEvent("rt-polaroid:server:UpdateInfo", "polaroid", 3)
                             FullClose()
+
                         end
         
                         local zoomvalue = (1.0/(fov_max-fov_min))*(fov-fov_min)
@@ -284,8 +285,8 @@ RegisterNetEvent("rt-polaroid:client:use-film", function(item, camera, bordercol
             TriggerServerEvent("rt-polaroid:server:items", "remove", item.name, 1)
             TriggerEvent("inventory:client:ItemBox", QBCore.Shared.Items[test], "add")
             TriggerEvent("inventory:client:ItemBox", QBCore.Shared.Items[item.name], "remove")
-            if item.info.border then
-                TriggerServerEvent("rt-polaroid:server:UpdateInfo", "polaroid", 0, item.info.film, item.info.border)
+            if item.info.film then
+                TriggerServerEvent("rt-polaroid:server:UpdateInfo", "polaroid", 0, item.info.film, bordercolor)
             else
                 TriggerServerEvent("rt-polaroid:server:UpdateInfo", "polaroid", 0, 5, bordercolor)
             end
