@@ -23,7 +23,7 @@ QBCore.Functions.CreateUseableItem("yellowfilm", function(source, item)
     local Player = QBCore.Functions.GetPlayer(src)
     if Player.Functions.GetItemByName('polaroid') ~= nil then
         local camera = Player.Functions.GetItemByName('polaroid')
-        TriggerClientEvent("rt-polaroid:client:use-film", src, item, camera, camera, "yellow")
+        TriggerClientEvent("rt-polaroid:client:use-film", src, item, camera, "yellow")
     end
 end)
 

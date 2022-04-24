@@ -105,7 +105,9 @@ function HandleZoom(cam)
 end
 
 RegisterNetEvent("rt-polaroid:client:use-camera", function(item)
-    if not active then
+    local test = PlayerPedId()
+    local vehicle = IsPedSittingInAnyVehicle(test)
+    if not active and not vehicle then
         active = true
         local ped = PlayerPedId()
         SharedRequestAnimDict(cl_configable.CameraAnimationDic, function()
@@ -124,7 +126,6 @@ RegisterNetEvent("rt-polaroid:client:use-camera", function(item)
 
                 Wait(200)
                 local lPed = PlayerPedId()
-                local vehicle = GetVehiclePedIsIn(lPed)
                 if active then
                     active = true
                     Wait(500)
@@ -162,7 +163,7 @@ RegisterNetEvent("rt-polaroid:client:use-camera", function(item)
                     if item.info.film and item.info.film > 0 then
                         QBCore.Functions.Notify("Press F To unload film from polaroid", "error", 2000)
                     end
-                    while active and not IsEntityDead(lPed) and (GetVehiclePedIsIn(lPed) == vehicle) and true do
+                    while active and not IsEntityDead(lPed) do
                         if IsControlJustPressed(0, 177) or IsControlJustPressed(0, 202) then
                             PlaySoundFrontend(-1, "SELECT", "HUD_FRONTEND_DEFAULT_SOUNDSET", false)
                             FullClose()
