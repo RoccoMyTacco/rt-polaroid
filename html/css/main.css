@@ -4,27 +4,26 @@
   position: absolute;
   top: 0;
   width: 100%;
-  z-index: 1001;
 }
 
 .polaroidshow {
   margin:0px auto;
-  margin-top:120px;
+  margin-top: 7.5em;
   position:relative;
   padding:0px;
   width:100vh;
-  min-height:250px;
+  min-height:15.625em;
 }
 
 .borderfilm {
   position: relative;
   top: 0;
   left: 8em;
-  -webkit-filter: blur(1px);
-  -moz-filter: blur(1px);
-  -o-filter: blur(1px);
-  -ms-filter: blur(1px);
-  filter: blur(1px);
+  -webkit-filter: blur(0.0625em);
+  -moz-filter: blur(0.0625em);
+  -o-filter: blur(0.0625em);
+  -ms-filter: blur(0.0625em);
+  filter: blur(0.0625em);
   
 }
 
@@ -32,9 +31,9 @@
   position: absolute;
   top: 4.6em;
   left: 12em;
-  -webkit-filter: blur(0.4px);
-  -moz-filter: blur(0.4px);
-  -o-filter: blur(0.4px);
-  -ms-filter: blur(0.4px);
-  filter: blur(0.4px);
+  -webkit-filter: blur(0.025em);
+  -moz-filter: blur(0.025em);
+  -o-filter: blur(0.025em);
+  -ms-filter: blur(0.025em);
+  filter: blur(0.025em);
 }
