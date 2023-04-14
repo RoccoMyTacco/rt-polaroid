@@ -139,7 +139,7 @@ RegisterNetEvent("rt-polaroid:client:use-camera", function(item)
                     AttachCamToEntity(cam, lPed, cl_configable.CameraX, cl_configable.CameraY, cl_configable.CameraZ, true)
                     SetCamRot(cam, 0.0,0.0,GetEntityHeading(lPed))
                     SetCamFov(cam, fov)
-                    RenderScriptCams(true, false, 0, 1, 0)
+                    RenderScriptCams(true, false, 0, true, false)
 
                     DisableControlAction(1, 106, true)
                     DisableControlAction(1, 140, true)
@@ -156,7 +156,7 @@ RegisterNetEvent("rt-polaroid:client:use-camera", function(item)
                             QBCore.Functions.Notify("You have ".. item.info.film .. " film in the camera", "error", 2000)
                         end
                     else
-                        lib.showTextUI("You have ".. item.info.film .. " film in the camera", options)
+                        lib.showTextUI("You have ".. item.info.film .. " film in the camera")
                     end
                     if item.info.film and item.info.film > 0 then
                         QBCore.Functions.Notify("Press F To unload film from polaroid", "error", 2000)
@@ -175,7 +175,7 @@ RegisterNetEvent("rt-polaroid:client:use-camera", function(item)
                                                 exports['screenshot-basic']:requestScreenshotUpload(tostring(hook), "files[]", function(data)
                                                     local image = json.decode(data)
                                                     FullClose()
-                                                    local newStr, replaced = string.gsub(item.info.border, "film", "")
+                                                    local newStr = string.gsub(item.info.border, "film", "")
                                                     if newStr == "rand" then
                                                         if cl_configable.RandomFilms then
                                                             local rand = math.random(1, #cl_configable.RandomFilms)
@@ -184,7 +184,6 @@ RegisterNetEvent("rt-polaroid:client:use-camera", function(item)
                                                                 border = cl_configable.RandomFilms[rand]
                                                             }
                                                             TriggerServerEvent("rt-polaroid:server:items", "add", "polaroidfilm", 1, info)
-                                                            TriggerEvent("inventory:client:ItemBox", QBCore.Shared.Items["polaroidfilm"], "add")
                                                         end
                                                     else
                                                         local info = {
@@ -192,7 +191,6 @@ RegisterNetEvent("rt-polaroid:client:use-camera", function(item)
                                                             border = newStr
                                                         }
                                                         TriggerServerEvent("rt-polaroid:server:items", "add", "polaroidfilm", 1, info)
-                                                        TriggerEvent("inventory:client:ItemBox", QBCore.Shared.Items["polaroidfilm"], "add")
                                                     end
                                                     TriggerServerEvent("rt-polaroid:server:UpdateInfo", "polaroid", 2, 1)
                                                 end)
@@ -206,7 +204,6 @@ RegisterNetEvent("rt-polaroid:client:use-camera", function(item)
                                 film = item.info.film
                             }
                             TriggerServerEvent("rt-polaroid:server:items", "add", item.info.border .. "film", 1, info)
-                            TriggerEvent("inventory:client:ItemBox", QBCore.Shared.Items[item.info.border .. "film"], "add")
                             QBCore.Functions.Notify("You have unloaded the film from the camera", "error", 2200)
                             TriggerServerEvent("rt-polaroid:server:UpdateInfo", "polaroid", 3)
                             FullClose()
@@ -222,7 +219,7 @@ RegisterNetEvent("rt-polaroid:client:use-camera", function(item)
                     FullClose()
                     ClearTimecycleModifier()
                     fov = (fov_max+fov_min)*0.5
-                    RenderScriptCams(false, false, 0, 1, 0)
+                    RenderScriptCams(false, false, 0, true, false)
                     DestroyCam(cam, false)
                     SetNightvision(false)
                     SetSeethrough(false)
@@ -268,7 +265,6 @@ RegisterNetEvent("rt-polaroid:client:use-film", function(item, camera, bordercol
     if bordercolor and item then
         if camera.info.film == nil or camera.info.film == 0 then
             TriggerServerEvent("rt-polaroid:server:items", "remove", item.name, 1)
-            TriggerEvent("inventory:client:ItemBox", QBCore.Shared.Items[item.name], "remove")
             if item.info.film then
                 TriggerServerEvent("rt-polaroid:server:UpdateInfo", "polaroid", 0, item.info.film, bordercolor)
             else
@@ -281,8 +277,6 @@ RegisterNetEvent("rt-polaroid:client:use-film", function(item, camera, bordercol
             local test = camera.info.border .. "film"
             TriggerServerEvent("rt-polaroid:server:items", "add", test, 1, info)
             TriggerServerEvent("rt-polaroid:server:items", "remove", item.name, 1)
-            TriggerEvent("inventory:client:ItemBox", QBCore.Shared.Items[test], "add")
-            TriggerEvent("inventory:client:ItemBox", QBCore.Shared.Items[item.name], "remove")
             if item.info.film then
                 TriggerServerEvent("rt-polaroid:server:UpdateInfo", "polaroid", 0, item.info.film, bordercolor)
             else
