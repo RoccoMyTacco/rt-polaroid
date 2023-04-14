@@ -28,7 +28,7 @@ cl_configable.CameraAnimationDic = "amb@world_human_paparazzi@male@base" -- Anim
 
 cl_configable.CameraAnimationName = "base" -- Animation Name when using polaroid camera
 
-cl_configable.UseQBDrawText = false -- Set to true if you want to use QB-DrawText
+cl_configable.TextUI = false -- Set to true if you want to use ox_lib TextUI
 
 cl_configable.MaxZoom = 60.0 -- Max Zoom
 

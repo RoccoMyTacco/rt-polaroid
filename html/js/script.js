@@ -10,7 +10,7 @@ function polaroidshow(source, film) {
     }
 }
 
-function polaroidhide() { 
+function polaroidhide() {
     if(pshow){
         $('#polaroid').fadeOut('slow');
         $('.polaroidshow').fadeOut('slow');

@@ -1,16 +1,14 @@
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['qbx-core']:GetCoreObject()
 local active = false
 local photoactive = false
 local cameraprop = nil
-local frontCam = false
 local photoprop = nil
 local fov_max = cl_configable.MaxZoom
 local fov_min = cl_configable.MinZoom
 local zoomspeed = cl_configable.ZoomSpeed
 local speed_lr = 8.0
-local speed_ud = 8.0 
+local speed_ud = 8.0
 local fov = (fov_max+fov_min)*0.5
-local bordername
 local presstake = false
 math.randomseed(GetGameTimer())
 
@@ -136,13 +134,13 @@ RegisterNetEvent("rt-polaroid:client:use-camera", function(item)
                              SetTimecycleModifierStrength(cl_configable.CameraEffectStrength)
                         end
                     end
-        
+
                     local cam = CreateCam(cl_configable.CameraName, true)
                     AttachCamToEntity(cam, lPed, cl_configable.CameraX, cl_configable.CameraY, cl_configable.CameraZ, true)
                     SetCamRot(cam, 0.0,0.0,GetEntityHeading(lPed))
                     SetCamFov(cam, fov)
                     RenderScriptCams(true, false, 0, 1, 0)
-                    
+
                     DisableControlAction(1, 106, true)
                     DisableControlAction(1, 140, true)
                     DisableControlAction(1, 141, true)
@@ -151,14 +149,14 @@ RegisterNetEvent("rt-polaroid:client:use-camera", function(item)
                     DisableControlAction(0, 176, true)
                     DisablePlayerFiring(lPed, true)
 
-                    if not cl_configable.UseQBDrawText then
+                    if not cl_configable.TextUI then
                         if item.info.film == nil or item.info.film <= 0 then
                             QBCore.Functions.Notify("You have no film in the camera", "error", 2000)
                         else
                             QBCore.Functions.Notify("You have ".. item.info.film .. " film in the camera", "error", 2000)
                         end
                     else
-                        exports['qb-drawtext']:DrawText("You have ".. item.info.film .. " film in the camera",'right')
+                        lib.showTextUI("You have ".. item.info.film .. " film in the camera", options)
                     end
                     if item.info.film and item.info.film > 0 then
                         QBCore.Functions.Notify("Press F To unload film from polaroid", "error", 2000)
@@ -187,7 +185,7 @@ RegisterNetEvent("rt-polaroid:client:use-camera", function(item)
                                                             }
                                                             TriggerServerEvent("rt-polaroid:server:items", "add", "polaroidfilm", 1, info)
                                                             TriggerEvent("inventory:client:ItemBox", QBCore.Shared.Items["polaroidfilm"], "add")
-                                                        end 
+                                                        end
                                                     else
                                                         local info = {
                                                             photourl = json.encode(image.attachments[1].proxy_url),
@@ -197,7 +195,7 @@ RegisterNetEvent("rt-polaroid:client:use-camera", function(item)
                                                         TriggerEvent("inventory:client:ItemBox", QBCore.Shared.Items["polaroidfilm"], "add")
                                                     end
                                                     TriggerServerEvent("rt-polaroid:server:UpdateInfo", "polaroid", 2, 1)
-                                                end)						
+                                                end)
                                             end
                                         end)
                                     end
@@ -214,7 +212,7 @@ RegisterNetEvent("rt-polaroid:client:use-camera", function(item)
                             FullClose()
 
                         end
-        
+
                         local zoomvalue = (1.0/(fov_max-fov_min))*(fov-fov_min)
                         CheckInputRotation(cam, zoomvalue)
                         HandleZoom(cam)
@@ -233,8 +231,8 @@ RegisterNetEvent("rt-polaroid:client:use-camera", function(item)
         end)
     else
         FullClose()
-        if cl_configable.UseQBDrawText then
-            exports['qb-drawtext']:HideText()
+        if cl_configable.TextUI then
+            lib.hideTextUI()
         end
     end
 end)
@@ -244,7 +242,7 @@ RegisterNetEvent("rt-polaroid:client:use-photo", function(url, border)
         photoactive = true
         SetNuiFocus(true, true)
         SendNUIMessage({action = "Show", photo = url, film = border})
-        
+
         local ped = PlayerPedId()
         SharedRequestAnimDict("amb@world_human_tourist_map@male@base", function()
             TaskPlayAnim(ped, "amb@world_human_tourist_map@male@base", "base", 2.0, 2.0, -1, 1, 0, false, false, false)

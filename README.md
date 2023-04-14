@@ -1,6 +1,6 @@
 # RT-polaroid
 
-# Install 
+# Install
 Add a Discord webhook to sv_configable!
 
 # New Items

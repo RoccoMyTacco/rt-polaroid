@@ -1,7 +1,6 @@
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['qbx-core']:GetCoreObject()
 
 RegisterNetEvent("rt-polaroid:server:add-photo-item", function(url, film)
-    local src = source
     local ply = QBCore.Functions.GetPlayer(source)
     if ply then
         local info = {
@@ -16,7 +15,6 @@ RegisterNetEvent("rt-polaroid:server:add-photo-item", function(url, film)
 end)
 
 RegisterNetEvent("rt-polaroid:server:add-photo-film", function(border, info)
-    local src = source
     local ply = QBCore.Functions.GetPlayer(source)
     if ply then
         ply.Functions.AddItem(border, 1, nil, info)
@@ -33,7 +31,6 @@ QBCore.Functions.CreateCallback("rt-polaroid:server:webhook",function(source,cb)
 end)
 
 RegisterNetEvent("rt-polaroid:server:items", function(state, item, amount, info)
-    local src = source
     local ply = QBCore.Functions.GetPlayer(source)
     if ply and state and item then
         if info then
@@ -48,7 +45,7 @@ RegisterNetEvent("rt-polaroid:server:items", function(state, item, amount, info)
             elseif state == "remove" then
                 ply.Functions.RemoveItem(item, amount)
             end
-        end 
+        end
     end
 end)
 
@@ -65,10 +62,10 @@ RegisterNetEvent('rt-polaroid:server:UpdateInfo', function(item, state, amount, 
     elseif state == 1  then
         Player.PlayerData.items[items.slot].info.film = Player.PlayerData.items[items.slot].info.film + amount
         Player.Functions.SetInventory(Player.PlayerData.items)
-    elseif state == 2 then 
+    elseif state == 2 then
         Player.PlayerData.items[items.slot].info.film = Player.PlayerData.items[items.slot].info.film - amount
         Player.Functions.SetInventory(Player.PlayerData.items)
-    elseif state == 3 then 
+    elseif state == 3 then
         Player.PlayerData.items[items.slot].info.film = 0
         Player.PlayerData.items[items.slot].info.border = nil
         Player.Functions.SetInventory(Player.PlayerData.items)

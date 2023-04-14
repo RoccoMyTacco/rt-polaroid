@@ -3,7 +3,7 @@ game 'gta5'
 
 author 'Rocco'
 description 'RT-polaroid'
-version '1.0.0'
+version '2.0.0'
 
 ui_page 'html/index.html'
 
@@ -16,22 +16,17 @@ files {
 
 client_scripts {
 	'client/*.lua',
-} 
+}
 
 server_scripts {
 	'server/*.lua',
 }
 
+shared_script '@ox_lib/init.lua'
 
 dependencies {
-    'screenshot-basic'
-}
-
-escrow_ignore {
-    'server/sv_configable.lua',
-    'client/cl_configable.lua',
-    'config.lua',
-    'README.md',
+    'screenshot-basic',
+    'ox_lib'
 }
 
 lua54 'yes'
