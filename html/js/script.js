@@ -16,7 +16,7 @@ function polaroidhide() {
         $('.polaroidshow').fadeOut('slow');
         $('.polaroidshow').html("");
         pshow = false
-        $.post('https://rt-polaroid/Close', JSON.stringify({}));
+        $.post('https://${GetParentResourceName()}/Close', JSON.stringify({}));
     }
 }
 
